@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceATC Simulator | Official Site</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff41; /* Radar Green */
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        header { text-align: center; border-bottom: 2px solid #00ff41; padding-bottom: 20px; margin-bottom: 40px; }
+        h1 { font-size: 2.5rem; letter-spacing: 4px; text-transform: uppercase; margin: 0; }
+        .hero { background: rgba(0, 255, 65, 0.05); padding: 40px; border-radius: 8px; border: 1px solid #00ff41; text-align: center; }
+        .steam-btn {
+            display: inline-block;
+            background: #00ff41;
+            color: #000;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        .steam-btn:hover { background: #fff; box-shadow: 0 0 20px #00ff41; }
+        .features { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 50px; }
+        .feature-box { border-left: 3px solid #00ff41; padding-left: 15px; }
+        .feature-box h3 { color: #fff; margin-top: 0; }
+        footer { margin-top: 100px; text-align: center; font-size: 0.8rem; opacity: 0.6; }
+        img { max-width: 100%; border: 1px solid #00ff41; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>VoiceATC Simulator</h1>
+        <p>> LOGGED IN AS: CHIEF CONTROLLER</p>
+    </header>
+
+    <div class="hero">
+        <h2>THE SKY IS YOURS TO COMMAND</h2>
+        <p>A realistic Air Traffic Control simulation where your voice is the primary interface. Sequence traffic, manage sectors, and master the art of the ILS approach.</p>
+        <a href="https://store.steampowered.com/app/3529560/VoiceATC_Simulator/" class="steam-btn" target="_blank">WISH LIST ON STEAM</a>
+    </div>
+
+    <div class="features">
+        <div class="feature-box">
+            <h3>Voice Recognition</h3>
+            <p>Direct aircraft using standard aviation phraseology. The simulator listens and reacts to your commands in real-time.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Real-World Airports</h3>
+            <p>Control traffic at Madrid (LEMD), Bilbao (LEBB), Barcelona (LEBL), and more with realistic sector layouts.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Steam Workshop</h3>
+            <p>Create and share custom airports. Easily edit game files to expand the simulator's reach to any airport in the world.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Pure Simulation</h3>
+            <p>Real routes, realistic callsigns, and technical precision. Designed for aviation enthusiasts and future controllers.</p>
+        </div>
+    </div>
+
+    <section style="margin-top: 50px; text-align: center;">
+        <h3>RADAR PREVIEW</h3>
+        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3529560/ss_7520448135862e316d3e3703901b092284988770.1920x1080.jpg" alt="VoiceATC Radar Screen">
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Lainoa Software. "Clear for takeoff."</p>
+        <p><a href="https://github.com/lainoa-software/voiceatc-simulator" style="color: #00ff41;">GitHub Repository</a></p>
+    </footer>
+</div>
+
+</body>
+</html>
