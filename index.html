@@ -88,6 +88,11 @@
       border-bottom-color: var(--primary-cyan);
     }
 
+    /* Active tab (Game) */
+    .nav-links a.active{
+      border-bottom-color: var(--text-primary);
+    }
+
     /* Buttons: no gradient, no lift */
     .btn{
       background: var(--primary-cyan);
@@ -100,11 +105,10 @@
       letter-spacing: .3px;
       display: inline-block;
     }
-  
-    .btn:hover{
-       background: #3e475f;
-    }
 
+    .btn:hover{
+      background: #3e475f;
+    }
 
     .btn-secondary{
       background: transparent;
@@ -232,7 +236,7 @@
       line-height: 1.6;
       font-size: .97rem;
     }
-  
+
     /* Sectors: 3x2 grid */
     .sectors-grid{
       display:grid;
@@ -240,7 +244,7 @@
       gap: 12px;
       margin-top: 10px;
     }
-    
+
     .sector{
       background: transparent;
       border: 1px dashed var(--rule-strong);
@@ -249,12 +253,12 @@
       text-align:left;
       transition:none;
     }
-    
+
     .sector:hover{
       border-color: var(--primary-cyan);
       transform:none;
     }
-    
+
     .sector-code{
       font-family: "JetBrains Mono", ui-monospace, monospace;
       font-size: 1.15rem;
@@ -263,12 +267,11 @@
       margin-bottom: 4px;
       letter-spacing: 2px;
     }
-    
+
     .sector-name{
       color: var(--text-secondary);
       font-size: .95rem;
     }
-
 
     /* CTA: like a notice, not a promo panel */
     .cta-section{
@@ -290,6 +293,25 @@
       font-size: 1.02rem;
       color: var(--text-secondary);
       margin-bottom: 14px;
+    }
+
+    /* About: keep lines readable */
+    #about p{
+      max-width: 68ch;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    #about p:last-child{
+      margin-bottom: 0;
+    }
+    #about a{
+      color: var(--text-primary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule-strong);
+      padding-bottom: 1px;
+    }
+    #about a:hover{
+      border-bottom-color: var(--text-primary);
     }
 
     /* Footer: minimal */
@@ -319,17 +341,17 @@
       border-bottom-color: var(--primary-cyan);
     }
 
-   @media (max-width: 768px){
+    @media (max-width: 768px){
       .nav-links{ display:none; } /* keep your current behavior */
       .hero{ padding-top: 44px; }
       .hero-buttons{ flex-direction: column; }
       .btn, .btn-secondary{ width: 100%; text-align:center; }
       footer, .cta-section, .section-title, .hero{ text-align:left; }
-    
+
       /* mobile support for grids */
       .features-grid{ grid-template-columns: 1fr; }
       .sectors-grid{ grid-template-columns: 1fr; }
-    
+
       /* mobile support for trailer height */
       .screenshot iframe{ height: 240px !important; }
     }
@@ -346,8 +368,8 @@
       <div class="nav-content">
         <div class="logo">VoiceATC Simulator</div>
         <div class="nav-links">
-          <a href="#features">Features</a>
-          <a href="#sectors">Sectors</a>
+          <a href="#game" class="active">Game</a>
+          <a href="#about">About</a>
           <a href="https://discord.gg/v4uRbPFyyB" target="_blank" rel="noopener">Discord</a>
         </div>
       </div>
@@ -355,7 +377,7 @@
   </nav>
 
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero" id="game">
     <div class="container">
       <h1>Realistic ATC with your Voice</h1>
       <p>Interact and sequence air traffic in a approach control simulation environment using voice commands with real airport configurations and sectoring.</p>
@@ -420,32 +442,32 @@
     </div>
   </section>
 
-    <!-- Sectors -->
+  <!-- Sectors -->
   <section class="section" id="sectors">
     <div class="container">
       <h2 class="section-title">Official Sectors</h2>
-  
+
       <div class="sectors-grid">
         <div class="sector">
           <div class="sector-code">LEMD</div>
           <div class="sector-name">Madrid Barajas</div>
         </div>
-  
+
         <div class="sector">
           <div class="sector-code">EHAM</div>
           <div class="sector-name">Amsterdam Schipol</div>
         </div>
-  
+
         <div class="sector">
           <div class="sector-code">LEBL</div>
           <div class="sector-name">Barcelona El Prat</div>
         </div>
-  
+
         <div class="sector">
           <div class="sector-code">LEMG</div>
           <div class="sector-name">Málaga Costa del Sol</div>
         </div>
-  
+
         <div class="sector">
           <div class="sector-code">LEPA</div>
           <div class="sector-name">Palma Son Sant Joan</div>
@@ -456,6 +478,37 @@
           <div class="sector-name">Maastricht Radar</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">About Startgrid Games</h2>
+
+      <p>Startgrid Games is a one-man game development company based in The Hague, the Netherlands.</p>
+
+      <p>
+        My name is Erwin, I'm the developer of Startgrid Games. In 2011, I started creating my own games,
+        including a minimalistic ATC radar simulator. Two years later, I released the simulator as my first
+        app for Android, named <em>Endless ATC</em>, using the developer name “Startgrid”. After receiving lots
+        of positive feedback from players, I published more advanced premium versions of Endless ATC for
+        Windows PC and Android.
+      </p>
+
+      <p>
+        Since then, I kept adding more and more features that made the simulator more realistic without compromising
+        the easy-to-use interface and gameplay.
+      </p>
+
+      <p>
+        By the way, the word <em>startgrid</em> is named after the place where cars line-up before a race begins:
+        the starting grid.
+      </p>
+
+      <p>
+        For questions, mail me at <a href="mailto:contact@startgridgames.com">contact@startgridgames.com</a>
+      </p>
     </div>
   </section>
 
