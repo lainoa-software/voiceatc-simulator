@@ -69,7 +69,7 @@
       align-items:center;
     }
 
-    /* UPDATED NAV LINK STYLES */
+    /* NAV LINKS — UPDATED */
     .nav-links a{
       color: var(--text-secondary);
       text-decoration: none;
@@ -125,23 +125,37 @@
       text-align: left;
     }
 
+    .hero-badge{
+      display:inline-block;
+      background: transparent;
+      border: 1px solid var(--rule);
+      padding: 6px 10px;
+      border-radius: 0;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: .85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+    }
+
     .hero h1{
       font-size: clamp(2.0rem, 4.6vw, 3.2rem);
       font-weight: 800;
       line-height: 1.1;
       margin-bottom: 12px;
+      letter-spacing: -0.4px;
     }
 
     .hero p{
       font-size: 1.05rem;
       color: var(--text-secondary);
       max-width: 62ch;
-      margin-bottom: 18px;
+      margin: 0 0 18px;
     }
 
     .hero-buttons{
       display:flex;
       gap: 10px;
+      justify-content:flex-start;
       flex-wrap: wrap;
     }
 
@@ -150,15 +164,14 @@
     }
 
     .screenshot{
+      border-radius: 0;
+      overflow: hidden;
       border: 1px solid var(--text-primary);
+      box-shadow: none;
+      background: transparent;
     }
 
-    .screenshot iframe{
-      width:100%;
-      height:520px;
-      border:0;
-      display:block;
-    }
+    .screenshot img{ width:100%; display:block; }
 
     .section{
       padding: 54px 0;
@@ -168,7 +181,90 @@
     .section-title{
       font-size: 1.35rem;
       font-weight: 800;
+      text-align:left;
       margin-bottom: 18px;
+      letter-spacing: .6px;
+      color: var(--text-primary);
+    }
+
+    .features-grid{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px 22px;
+    }
+
+    @media (max-width: 768px){
+      .features-grid{
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature{
+      background: transparent;
+      border: 1px solid var(--rule);
+      border-radius: 0;
+      padding: 16px 16px 14px;
+    }
+
+    .feature-icon{
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      opacity: .9;
+    }
+
+    .feature h3{
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+
+    .feature p{
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: .97rem;
+    }
+
+    .sectors-grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .sector{
+      background: transparent;
+      border: 1px dashed var(--rule-strong);
+      border-radius: 0;
+      padding: 14px 14px 12px;
+    }
+
+    .sector-code{
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .sector-name{
+      color: var(--text-secondary);
+      font-size: .95rem;
+    }
+
+    .cta-section{
+      border: 1px solid var(--rule-strong);
+      padding: 26px 18px;
+      margin: 40px 0 0;
+    }
+
+    #about p{
+      max-width: 68ch;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    #about a{
+      color: var(--text-primary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule-strong);
     }
 
     footer{
@@ -182,12 +278,15 @@
       .hero{ padding-top: 44px; }
       .hero-buttons{ flex-direction: column; }
       .btn, .btn-secondary{ width: 100%; text-align:center; }
-      .screenshot iframe{ height:240px; }
+      .screenshot iframe{ height: 240px !important; }
     }
+
+    .screenshot iframe{ width:100%; display:block; border:0; }
   </style>
 </head>
 
 <body>
+
   <nav>
     <div class="container">
       <div class="nav-content">
@@ -200,7 +299,7 @@
       </div>
     </div>
   </nav>
-
+  <!-- Hero -->
   <section class="hero" id="game">
     <div class="container">
       <h1>Realistic ATC with your Voice</h1>
@@ -216,6 +315,127 @@
     </div>
   </section>
 
+  <!-- Trailer -->
+  <section class="screenshot-section">
+    <div class="container">
+      <div class="screenshot">
+        <iframe
+          width="100%"
+          height="520"
+          src="https://www.youtube.com/embed/8pM0XoV1mME"
+          title="VoiceATC Simulator Trailer"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section" id="features">
+    <div class="container">
+      <h2 class="section-title">Features</h2>
+
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">🎙️</div>
+          <h3>Voice Control</h3>
+          <p>Command aircraft using standard aviation phraseology with real-time voice recognition.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">📡</div>
+          <h3>Realistic Traffic</h3>
+          <p>Real airline routes, authentic callsigns and realistic traffic flows.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🗺️</div>
+          <h3>Real Sectors</h3>
+          <p>Authentic sector layouts with procedures.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🛠️</div>
+          <h3>Steam Workshop</h3>
+          <p>Create and share custom airports. Expand to any airport in the world.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sectors -->
+  <section class="section" id="sectors">
+    <div class="container">
+      <h2 class="section-title">Official Sectors</h2>
+
+      <div class="sectors-grid">
+        <div class="sector">
+          <div class="sector-code">LEMD</div>
+          <div class="sector-name">Madrid Barajas</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-code">EHAM</div>
+          <div class="sector-name">Amsterdam Schipol</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-code">LEBL</div>
+          <div class="sector-name">Barcelona El Prat</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-code">LEMG</div>
+          <div class="sector-name">Málaga Costa del Sol</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-code">LEPA</div>
+          <div class="sector-name">Palma Son Sant Joan</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-code">EDYY</div>
+          <div class="sector-name">Maastricht Radar</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">About Startgrid Games</h2>
+
+      <p>Startgrid Games is a one-man game development company based in The Hague, the Netherlands.</p>
+
+      <p>
+        My name is Erwin, I'm the developer of Startgrid Games. In 2011, I started creating my own games,
+        including a minimalistic ATC radar simulator. Two years later, I released the simulator as my first
+        app for Android, named <em>Endless ATC</em>, using the developer name “Startgrid”. After receiving lots
+        of positive feedback from players, I published more advanced premium versions of Endless ATC for
+        Windows PC and Android.
+      </p>
+
+      <p>
+        Since then, I kept adding more and more features that made the simulator more realistic without compromising
+        the easy-to-use interface and gameplay.
+      </p>
+
+      <p>
+        By the way, the word <em>startgrid</em> is named after the place where cars line-up before a race begins:
+        the starting grid.
+      </p>
+
+      <p>
+        For questions, mail me at <a href="mailto:contact@startgridgames.com">contact@startgridgames.com</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer>
     <div class="container">
       <p>&copy; 2026 Lainoa Software. All rights reserved.</p>
