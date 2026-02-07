@@ -232,16 +232,16 @@
       line-height: 1.6;
       font-size: .97rem;
     }
-
-    /* Airports: simple stamps */
-    .airports-grid{
+  
+    /* Sectors: 3x2 grid */
+    .sectors-grid{
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(2, 1fr); /* 2 columns */
       gap: 12px;
       margin-top: 10px;
     }
-
-    .airport{
+    
+    .sector{
       background: transparent;
       border: 1px dashed var(--rule-strong);
       border-radius: 0;
@@ -249,12 +249,13 @@
       text-align:left;
       transition:none;
     }
-    .airport:hover{
+    
+    .sector:hover{
       border-color: var(--primary-cyan);
       transform:none;
     }
-
-    .airport-code{
+    
+    .sector-code{
       font-family: "JetBrains Mono", ui-monospace, monospace;
       font-size: 1.15rem;
       font-weight: 800;
@@ -262,11 +263,12 @@
       margin-bottom: 4px;
       letter-spacing: 2px;
     }
-
-    .airport-name{
+    
+    .sector-name{
       color: var(--text-secondary);
       font-size: .95rem;
     }
+
 
     /* CTA: like a notice, not a promo panel */
     .cta-section{
@@ -317,14 +319,23 @@
       border-bottom-color: var(--primary-cyan);
     }
 
-    /* Responsive */
-    @media (max-width: 768px){
-      .nav-links{ display:none; }
+   @media (max-width: 768px){
+      .nav-links{ display:none; } /* keep your current behavior */
       .hero{ padding-top: 44px; }
       .hero-buttons{ flex-direction: column; }
       .btn, .btn-secondary{ width: 100%; text-align:center; }
       footer, .cta-section, .section-title, .hero{ text-align:left; }
+    
+      /* mobile support for grids */
+      .features-grid{ grid-template-columns: 1fr; }
+      .sectors-grid{ grid-template-columns: 1fr; }
+    
+      /* mobile support for trailer height */
+      .screenshot iframe{ height: 240px !important; }
     }
+
+    .screenshot iframe{ width:100%; display:block; border:0; }
+
   </style>
 </head>
 
@@ -336,7 +347,7 @@
         <div class="logo">VoiceATC Simulator</div>
         <div class="nav-links">
           <a href="#features">Features</a>
-          <a href="#airports">Airports</a>
+          <a href="#sectors">Sectors</a>
           <a href="https://discord.gg/v4uRbPFyyB" target="_blank" rel="noopener">Discord</a>
         </div>
       </div>
@@ -409,55 +420,44 @@
     </div>
   </section>
 
-  <!-- Airports -->
-  <section class="section" id="airports">
+    <!-- Sectors -->
+  <section class="section" id="sectors">
     <div class="container">
-      <h2 class="section-title">Official Airports</h2>
-
-      <div class="airports-grid">
-        <div class="airport">
-          <div class="airport-code">LEMD</div>
-          <div class="airport-name">Madrid–Barajas</div>
+      <h2 class="section-title">Official Sectors</h2>
+  
+      <div class="sectors-grid">
+        <div class="sector">
+          <div class="sector-code">EDYY</div>
+          <div class="sector-name">Maastricht Radar</div>
         </div>
-
-        <div class="airport">
-          <div class="airport-code">LEBB</div>
-          <div class="airport-name">Bilbao</div>
+  
+        <div class="sector">
+          <div class="sector-code">—</div>
+          <div class="sector-name">Coming soon</div>
         </div>
-
-        <div class="airport">
-          <div class="airport-code">LEBL</div>
-          <div class="airport-name">Barcelona</div>
+  
+        <div class="sector">
+          <div class="sector-code">—</div>
+          <div class="sector-name">Coming soon</div>
         </div>
-
-        <div class="airport">
-          <div class="airport-code">LEMG</div>
-          <div class="airport-name">Málaga</div>
+  
+        <div class="sector">
+          <div class="sector-code">—</div>
+          <div class="sector-name">Coming soon</div>
         </div>
-
-        <div class="airport">
-          <div class="airport-code">LEPA</div>
-          <div class="airport-name">Palma de Mallorca</div>
+  
+        <div class="sector">
+          <div class="sector-code">—</div>
+          <div class="sector-name">Coming soon</div>
+        </div>
+  
+        <div class="sector">
+          <div class="sector-code">—</div>
+          <div class="sector-name">Coming soon</div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- CTA -->
-  <div class="container">
-    <div class="cta-section">
-      <h2>Ready to Take Control?</h2>
-      <p>Join the community and start controlling traffic today.</p>
-      <div class="hero-buttons">
-        <a href="https://store.steampowered.com/app/3529560/VoiceATC_Simulator/" class="btn" target="_blank" rel="noopener">
-          Buy on Steam — 4.99€
-        </a>
-        <a href="https://discord.gg/v4uRbPFyyB" class="btn-secondary" target="_blank" rel="noopener">
-          Join Discord
-        </a>
-      </div>
-    </div>
-  </div>
 
   <!-- Footer -->
   <footer>
@@ -468,7 +468,7 @@
         <a href="https://discord.gg/v4uRbPFyyB" target="_blank" rel="noopener">Discord</a>
         <a href="https://github.com/lainoa-software/voiceatc-simulator" target="_blank" rel="noopener">GitHub</a>
       </div>
-      <p>&copy; 2024 Lainoa Software. All rights reserved.</p>
+      <p>&copy; 2026 Lainoa Software. All rights reserved.</p>
     </div>
   </footer>
 </body>
