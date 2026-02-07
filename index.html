@@ -91,20 +91,21 @@
 
     /* Buttons: no gradient, no lift */
     .btn{
-      background: transparent;
+      background: var(--primary-cyan);
       border: 1px solid var(--primary-cyan);
-      color: var(--text-primary);
+      color: #ffffff;
       padding: 10px 14px;
-      border-radius: 0; /* squarer = vintage */
+      border-radius: 0;
       text-decoration: none;
       font-weight: 800;
       letter-spacing: .3px;
-      display:inline-block;
+      display: inline-block;
     }
+  
     .btn:hover{
-      background: rgba(74,84,109,.16);
-      transform: none;
+      background: rgba(74,84,109,.85); /* slightly darker on hover */
     }
+
 
     .btn-secondary{
       background: transparent;
@@ -343,7 +344,7 @@
   <section class="hero">
     <div class="container">
       <h1>Realistic ATC with your Voice</h1>
-      <p>Realistic Air Traffic Control simulation. Use your voice to sequence aircraft, manage sectors, and control traffic at real-world airports.</p>
+      <p>Interact and sequence air traffic in a simulation environment using voice commands with real airport configurations and sectoring.</p>
       <div class="hero-buttons">
         <a href="https://store.steampowered.com/app/3529560/VoiceATC_Simulator/" class="btn" target="_blank" rel="noopener">
           Buy on Steam — 4.99€
