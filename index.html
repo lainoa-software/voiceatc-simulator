@@ -1,449 +1,487 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VoiceATC Simulator</title>
-    <meta name="description" content="Voice-controlled Air Traffic Control simulator. Command aircraft using your voice at real-world airports.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoiceATC Simulator</title>
+  <meta name="description" content="Voice-controlled Air Traffic Control simulator. Command aircraft using your voice at real-world airports." />
 
-        :root {
-            --primary-cyan: #4a546d;
-            --secondary-cyan: #4a546d;
-            --dark-bg: #080808;
-            --dark-card: #080808;
-            --text-primary: #ffffff;
-            --text-secondary: #acacac;
-        }
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-        }
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    :root {
+      /* your game colors */
+      --primary-cyan: #4a546d;
+      --secondary-cyan: #4a546d;
 
-        /* Navigation */
-        nav {
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
-            padding: 1.5rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+      --dark-bg: #080808;
+      --dark-card: #080808;
+      --text-primary: #ffffff;
+      --text-secondary: #acacac;
 
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      /* vintage-ish helpers */
+      --paper: rgba(255,255,255,.06);
+      --rule: rgba(255,255,255,.14);
+      --rule-strong: rgba(255,255,255,.22);
+    }
 
-        .logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-cyan);
-            letter-spacing: 2px;
-        }
+    body{
+      background: var(--dark-bg);
+      color: var(--text-primary);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.55;
+      letter-spacing: 0.2px;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
+    .container{
+      max-width: 980px; /* narrower = more classic */
+      margin: 0 auto;
+      padding: 0 18px;
+    }
 
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+    /* NAV: flat, printed look */
+    nav{
+      background: transparent;
+      border-bottom: 1px solid var(--rule);
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: none;
+    }
 
-        .nav-links a:hover {
-            color: var(--primary-cyan);
-        }
+    .nav-content{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap: 16px;
+    }
 
-        .btn {
-            background: linear-gradient(135deg, var(--primary-cyan), var(--secondary-cyan));
-            color: #fff;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s;
-            display: inline-block;
-        }
+    .logo{
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--text-primary);
+    }
+    .logo::after{
+      content:"";
+      display:inline-block;
+      width: 10px;
+      height: 10px;
+      margin-left: 10px;
+      border: 1px solid var(--primary-cyan);
+      transform: translateY(1px);
+    }
 
-        .btn:hover {
-            transform: translateY(-2px);
-        }
+    .nav-links{
+      display:flex;
+      gap: 18px;
+      align-items:center;
+    }
 
-        /* Hero */
-        .hero {
-            padding: 120px 20px 80px;
-            text-align: center;
-        }
+    .nav-links a{
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 6px 0;
+      border-bottom: 1px solid transparent;
+    }
+    .nav-links a:hover{
+      color: var(--text-primary);
+      border-bottom-color: var(--primary-cyan);
+    }
 
-        .hero-badge {
-            display: inline-block;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--primary-cyan);
-            margin-bottom: 2rem;
-        }
+    /* Buttons: no gradient, no lift */
+    .btn{
+      background: transparent;
+      border: 1px solid var(--primary-cyan);
+      color: var(--text-primary);
+      padding: 10px 14px;
+      border-radius: 0; /* squarer = vintage */
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: .3px;
+      display:inline-block;
+    }
+    .btn:hover{
+      background: rgba(74,84,109,.16);
+      transform: none;
+    }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
+    .btn-secondary{
+      background: transparent;
+      border: 1px solid var(--rule-strong);
+      color: var(--text-primary);
+      padding: 10px 14px;
+      border-radius: 0;
+      font-weight: 800;
+      text-decoration:none;
+      display:inline-block;
+    }
+    .btn-secondary:hover{
+      border-color: var(--primary-cyan);
+      background: rgba(255,255,255,.04);
+    }
 
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto 2.5rem;
-        }
+    /* HERO: smaller, editorial */
+    .hero{
+      padding: 64px 0 22px;
+      text-align: left; /* less “SaaS” */
+    }
 
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+    .hero-badge{
+      display:inline-block;
+      background: transparent;
+      border: 1px solid var(--rule);
+      padding: 6px 10px;
+      border-radius: 0;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: .85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+    }
 
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: var(--text-primary);
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s;
-        }
+    .hero h1{
+      font-size: clamp(2.0rem, 4.6vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      letter-spacing: -0.4px;
+    }
 
-        .btn-secondary:hover {
-            border-color: var(--primary-cyan);
-            background: rgba(0, 212, 255, 0.1);
-        }
+    .hero p{
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 62ch;
+      margin: 0 0 18px;
+    }
 
-        <!-- Hero -->
-        <section class="hero">
-            <div class="container">
-                <h1>Command the Sky<br>With Your Voice</h1>
-                <p>Realistic Air Traffic Control simulation. Use your voice to sequence aircraft, manage sectors, and control traffic at real-world airports.</p>
-                <div class="hero-buttons">
-                    <a href="https://store.steampowered.com/app/3529560/VoiceATC_Simulator/" class="btn" target="_blank">
-                        Buy on Steam - 4.99€
-                    </a>
-                    <a href="https://discord.gg/v4uRbPFyyB" class="btn-secondary" target="_blank">
-                        Join our Discord
-                    </a>
-                </div>
-            </div>
-        </section>
-        
-        /* Screenshot */
-        .screenshot-section {
-            padding: 40px 20px 80px;
-        }
+    .hero-buttons{
+      display:flex;
+      gap: 10px;
+      justify-content:flex-start;
+      flex-wrap: wrap;
+    }
 
-        .screenshot {
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
+    /* Screenshot: simple framed photo */
+    .screenshot-section{
+      padding: 22px 0 40px;
+    }
 
-        .screenshot img {
-            width: 100%;
-            display: block;
-        }
+    .screenshot{
+      border-radius: 0;
+      overflow:hidden;
+      border: 1px solid var(--rule-strong);
+      box-shadow: none;
+      background: var(--paper);
+    }
+    .screenshot img{ width:100%; display:block; }
 
-        /* Features */
-        .section {
-            padding: 80px 20px;
-        }
+    /* Sections: classic rhythm */
+    .section{
+      padding: 54px 0;
+      border-top: 1px solid var(--rule);
+    }
 
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+    .section-title{
+      font-size: 1.35rem;
+      font-weight: 800;
+      text-align:left;
+      margin-bottom: 18px;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
+    /* Features: list-like grid, no “cards” */
+    .features-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px 22px;
+      margin-top: 0;
+    }
 
-        .feature {
-            background: var(--dark-card);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s;
-        }
+    .feature{
+      background: transparent;
+      border: 1px solid var(--rule);
+      border-radius: 0;
+      padding: 16px 16px 14px;
+      transition: none;
+    }
+    .feature:hover{
+      border-color: var(--primary-cyan);
+      transform:none;
+    }
 
-        .feature:hover {
-            border-color: rgba(0, 212, 255, 0.3);
-            transform: translateY(-5px);
-        }
+    .feature-icon{
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      opacity: .9;
+    }
 
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
+    .feature h3{
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+      letter-spacing: .2px;
+    }
 
-        .feature h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.75rem;
-        }
+    .feature p{
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: .97rem;
+    }
 
-        .feature p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
+    /* Airports: simple stamps */
+    .airports-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
 
-        /* Airports */
-        .airports-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
+    .airport{
+      background: transparent;
+      border: 1px dashed var(--rule-strong);
+      border-radius: 0;
+      padding: 14px 14px 12px;
+      text-align:left;
+      transition:none;
+    }
+    .airport:hover{
+      border-color: var(--primary-cyan);
+      transform:none;
+    }
 
-        .airport {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 184, 230, 0.05));
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 10px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s;
-        }
+    .airport-code{
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      letter-spacing: 2px;
+    }
 
-        .airport:hover {
-            border-color: var(--primary-cyan);
-            transform: translateY(-5px);
-        }
+    .airport-name{
+      color: var(--text-secondary);
+      font-size: .95rem;
+    }
 
-        .airport-code {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-cyan);
-            margin-bottom: 0.5rem;
-        }
+    /* CTA: like a notice, not a promo panel */
+    .cta-section{
+      background: transparent;
+      border: 1px solid var(--rule-strong);
+      border-radius: 0;
+      padding: 26px 18px;
+      text-align:left;
+      margin: 40px 0 0;
+    }
 
-        .airport-name {
-            color: var(--text-secondary);
-        }
+    .cta-section h2{
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      letter-spacing: .2px;
+    }
 
-        /* CTA */
-        .cta-section {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 184, 230, 0.1));
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 16px;
-            padding: 4rem 2rem;
-            text-align: center;
-            margin: 80px 20px;
-        }
+    .cta-section p{
+      font-size: 1.02rem;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
 
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
+    /* Footer: minimal */
+    footer{
+      border-top: 1px solid var(--rule);
+      padding: 28px 0;
+      text-align:left;
+      color: var(--text-secondary);
+    }
 
-        .cta-section p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-        }
+    .footer-links{
+      display:flex;
+      justify-content:flex-start;
+      gap: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
 
-        /* Footer */
-        footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 3rem 20px;
-            text-align: center;
-            color: var(--text-secondary);
-        }
+    .footer-links a{
+      color: var(--text-secondary);
+      text-decoration:none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+    }
+    .footer-links a:hover{
+      color: var(--text-primary);
+      border-bottom-color: var(--primary-cyan);
+    }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-cyan);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn, .btn-secondary {
-                width: 100%;
-            }
-        }
-    </style>
+    /* Responsive */
+    @media (max-width: 768px){
+      .nav-links{ display:none; }
+      .hero{ padding-top: 44px; }
+      .hero-buttons{ flex-direction: column; }
+      .btn, .btn-secondary{ width: 100%; text-align:center; }
+      footer, .cta-section, .section-title, .hero{ text-align:left; }
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">VOICEATC</div>
-                <div class="nav-links">
-                    <a href="#features">Features</a>
-                    <a href="#airports">Airports</a>
-                    <a href="https://discord.gg/v4uRbPFyyB" target="_blank">Discord</a>
-                    <a href="https://store.steampowered.com/app/3529560/VoiceATC_Simulator/" class="btn" target="_blank">Get on Steam</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Screenshot -->
-    <section class="screenshot-section">
-        <div class="container">
-            <div class="screenshot">
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3529560/294f5b7495045caf9ae8cd78a79ae361e36ca43d/ss_294f5b7495045caf9ae8cd78a79ae361e36ca43d.1920x1080.jpg?t=1767101161" alt="VoiceATC Simulator Radar Screen">
-            </div>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section class="section" id="features">
-        <div class="container">
-            <h2 class="section-title">Features</h2>
-            <div class="features-grid">
-                <div class="feature">
-                    <div class="feature-icon">🎙️</div>
-                    <h3>Voice Control</h3>
-                    <p>Command aircraft using standard aviation phraseology with real-time voice recognition.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">📡</div>
-                    <h3>Realistic Traffic</h3>
-                    <p>Real airline routes, authentic callsigns, and realistic traffic patterns.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">✈️</div>
-                    <h3>ILS Approaches</h3>
-                    <p>Master sequencing aircraft into the Instrument Landing System with proper spacing.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🗺️</div>
-                    <h3>Real Sectors</h3>
-                    <p>Authentic sector layouts with minimum altitude alerts and proper procedures.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🛠️</div>
-                    <h3>Steam Workshop</h3>
-                    <p>Create and share custom airports. Expand to any airport in the world.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">📚</div>
-                    <h3>Complete Training</h3>
-                    <p>Video tutorials and written manual covering all aspects of the simulation.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Airports -->
-    <section class="section" id="airports">
-        <div class="container">
-            <h2 class="section-title">Official Airports</h2>
-            <div class="airports-grid">
-                <div class="airport">
-                    <div class="airport-code">LEMD</div>
-                    <div class="airport-name">Madrid-Barajas</div>
-                </div>
-                <div class="airport">
-                    <div class="airport-code">LEBB</div>
-                    <div class="airport-name">Bilbao</div>
-                </div>
-                <div class="airport">
-                    <div class="airport-code">LEBL</div>
-                    <div class="airport-name">Barcelona</div>
-                </div>
-                <div class="airport">
-                    <div class="airport-code">LEMG</div>
-                    <div class="airport-name">Málaga</div>
-                </div>
-                <div class="airport">
-                    <div class="airport-code">LEPA</div>
-                    <div class="airport-name">Palma de Mallorca</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
+  <!-- Navigation -->
+  <nav>
     <div class="container">
-        <div class="cta-section">
-            <h2>Ready to Take Control?</h2>
-            <p>Join the community and start controlling traffic today.</p>
-            <div class="hero-buttons">
-                <a href="https://store.steampowered.com/app/3529560/VoiceATC_Simulator/" class="btn" target="_blank">Buy on Steam - $4.99</a>
-                <a href="https://discord.gg/v4uRbPFyyB" class="btn-secondary" target="_blank">Join Discord</a>
-            </div>
+      <div class="nav-content">
+        <div class="logo">VOICEATC</div>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#airports">Airports</a>
+          <a href="https://discord.gg/v4uRbPFyyB" target="_blank" rel="noopener">Discord</a>
+          <a href="https://store.steampowered.com/app/3529560/VoiceATC_Simulator/" class="btn" target="_blank" rel="noopener">Get on Steam</a>
         </div>
+      </div>
     </div>
+  </nav>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-links">
-                <a href="https://store.steampowered.com/app/3529560/VoiceATC_Simulator/" target="_blank">Steam</a>
-                <a href="https://steamcommunity.com/app/3529560/workshop/" target="_blank">Workshop</a>
-                <a href="https://discord.gg/v4uRbPFyyB" target="_blank">Discord</a>
-                <a href="https://github.com/lainoa-software/voiceatc-simulator" target="_blank">GitHub</a>
-            </div>
-            <p>&copy; 2024 Lainoa Software. All rights reserved.</p>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">VOICE CONTROLLED ATC</div>
+      <h1>Command the Sky<br>With Your Voice</h1>
+      <p>Realistic Air Traffic Control simulation. Use your voice to sequence aircraft, manage sectors, and control traffic at real-world airports.</p>
+      <div class="hero-buttons">
+        <a href="https://store.steampowered.com/app/3529560/VoiceATC_Simulator/" class="btn" target="_blank" rel="noopener">
+          Buy on Steam — 4.99€
+        </a>
+        <a href="https://discord.gg/v4uRbPFyyB" class="btn-secondary" target="_blank" rel="noopener">
+          Join our Discord
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshot -->
+  <section class="screenshot-section">
+    <div class="container">
+      <div class="screenshot">
+        <img
+          src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3529560/294f5b7495045caf9ae8cd78a79ae361e36ca43d/ss_294f5b7495045caf9ae8cd78a79ae361e36ca43d.1920x1080.jpg?t=1767101161"
+          alt="VoiceATC Simulator Radar Screen"
+          loading="lazy"
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section" id="features">
+    <div class="container">
+      <h2 class="section-title">Features</h2>
+
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">🎙️</div>
+          <h3>Voice Control</h3>
+          <p>Command aircraft using standard aviation phraseology with real-time voice recognition.</p>
         </div>
-    </footer>
+
+        <div class="feature">
+          <div class="feature-icon">📡</div>
+          <h3>Realistic Traffic</h3>
+          <p>Real airline routes, authentic callsigns, and realistic traffic patterns.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">✈️</div>
+          <h3>ILS Approaches</h3>
+          <p>Master sequencing aircraft into the Instrument Landing System with proper spacing.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🗺️</div>
+          <h3>Real Sectors</h3>
+          <p>Authentic sector layouts with minimum altitude alerts and proper procedures.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🛠️</div>
+          <h3>Steam Workshop</h3>
+          <p>Create and share custom airports. Expand to any airport in the world.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">📚</div>
+          <h3>Complete Training</h3>
+          <p>Video tutorials and written manual covering all aspects of the simulation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Airports -->
+  <section class="section" id="airports">
+    <div class="container">
+      <h2 class="section-title">Official Airports</h2>
+
+      <div class="airports-grid">
+        <div class="airport">
+          <div class="airport-code">LEMD</div>
+          <div class="airport-name">Madrid–Barajas</div>
+        </div>
+
+        <div class="airport">
+          <div class="airport-code">LEBB</div>
+          <div class="airport-name">Bilbao</div>
+        </div>
+
+        <div class="airport">
+          <div class="airport-code">LEBL</div>
+          <div class="airport-name">Barcelona</div>
+        </div>
+
+        <div class="airport">
+          <div class="airport-code">LEMG</div>
+          <div class="airport-name">Málaga</div>
+        </div>
+
+        <div class="airport">
+          <div class="airport-code">LEPA</div>
+          <div class="airport-name">Palma de Mallorca</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="container">
+    <div class="cta-section">
+      <h2>Ready to Take Control?</h2>
+      <p>Join the community and start controlling traffic today.</p>
+      <div class="hero-buttons">
+        <a href="https://store.steampowered.com/app/3529560/VoiceATC_Simulator/" class="btn" target="_blank" rel="noopener">
+          Buy on Steam — 4.99€
+        </a>
+        <a href="https://discord.gg/v4uRbPFyyB" class="btn-secondary" target="_blank" rel="noopener">
+          Join Discord
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://store.steampowered.com/app/3529560/VoiceATC_Simulator/" target="_blank" rel="noopener">Steam</a>
+        <a href="https://steamcommunity.com/app/3529560/workshop/" target="_blank" rel="noopener">Workshop</a>
+        <a href="https://discord.gg/v4uRbPFyyB" target="_blank" rel="noopener">Discord</a>
+        <a href="https://github.com/lainoa-software/voiceatc-simulator" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <p>&copy; 2024 Lainoa Software. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
