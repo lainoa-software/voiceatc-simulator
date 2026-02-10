@@ -69,6 +69,7 @@
       align-items:center;
     }
 
+    /* NAV LINKS — UPDATED */
     .nav-links a{
       color: var(--text-secondary);
       text-decoration: none;
@@ -124,6 +125,18 @@
       text-align: left;
     }
 
+    .hero-badge{
+      display:inline-block;
+      background: transparent;
+      border: 1px solid var(--rule);
+      padding: 6px 10px;
+      border-radius: 0;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: .85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+    }
+
     .hero h1{
       font-size: clamp(2.0rem, 4.6vw, 3.2rem);
       font-weight: 800;
@@ -145,6 +158,20 @@
       justify-content:flex-start;
       flex-wrap: wrap;
     }
+
+    .screenshot-section{
+      padding: 22px 0 40px;
+    }
+
+    .screenshot{
+      border-radius: 0;
+      overflow: hidden;
+      border: 1px solid var(--text-primary);
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .screenshot img{ width:100%; display:block; }
 
     .section{
       padding: 54px 0;
@@ -175,7 +202,14 @@
     .feature{
       background: transparent;
       border: 1px solid var(--rule);
-      padding: 16px;
+      border-radius: 0;
+      padding: 16px 16px 14px;
+    }
+
+    .feature-icon{
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      opacity: .9;
     }
 
     .feature h3{
@@ -188,11 +222,117 @@
       line-height: 1.6;
       font-size: .97rem;
     }
+
+    .sectors-grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .sector{
+      background: transparent;
+      border: 1px dashed var(--rule-strong);
+      border-radius: 0;
+      padding: 14px 14px 12px;
+    }
+
+    .sector-code{
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .sector-name{
+      color: var(--text-secondary);
+      font-size: .95rem;
+    }
+
+    .cta-section{
+      border: 1px solid var(--rule-strong);
+      padding: 26px 18px;
+      margin: 40px 0 0;
+    }
+
+    #about p{
+      max-width: 68ch;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    #about a{
+      color: var(--text-primary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule-strong);
+    }
+
+    footer{
+      border-top: 1px solid var(--rule);
+      padding: 28px 0;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 768px){
+      .nav-links{ display:none; }
+      .hero{ padding-top: 44px; }
+      .hero-buttons{ flex-direction: column; }
+      .btn, .btn-secondary{ width: 100%; text-align:center; }
+      .screenshot iframe{ height: 240px !important; }
+    }
+
+    .screenshot iframe{ width:100%; display:block; border:0; }
   </style>
 </head>
 
 <body>
 
+  <nav>
+    <div class="container">
+      <div class="nav-content">
+        <div class="logo">VoiceATC Simulator</div>
+        <div class="nav-links">
+          <a href="#game" class="active">Game</a>
+          <a href="#about">About</a>
+          <a href="https://discord.gg/v4uRbPFyyB" target="_blank" rel="noopener">Discord</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- Hero -->
+  <section class="hero" id="game">
+    <div class="container">
+      <h1>Realistic ATC with your Voice</h1>
+      <p>Interact and sequence air traffic in a approach control simulation environment using voice commands with real airport configurations and sectoring.</p>
+      <div class="hero-buttons">
+        <a href="https://store.steampowered.com/app/3529560/VoiceATC_Simulator/" class="btn" target="_blank" rel="noopener">
+          Buy on Steam — 4.99€
+        </a>
+        <a href="https://discord.gg/v4uRbPFyyB" class="btn-secondary" target="_blank" rel="noopener">
+          Join our Discord
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trailer -->
+  <section class="screenshot-section">
+    <div class="container">
+      <div class="screenshot">
+        <iframe
+          width="100%"
+          height="520"
+          src="https://www.youtube.com/embed/8pM0XoV1mME"
+          title="VoiceATC Simulator Trailer"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
   <section class="section" id="features">
     <div class="container">
       <h2 class="section-title">Features</h2>
@@ -221,5 +361,68 @@
     </div>
   </section>
 
+  <!-- Sectors -->
+  <section class="section" id="sectors">
+    <div class="container">
+      <h2 class="section-title">Official Sectors</h2>
+
+      <div class="sectors-grid">
+        <div class="sector">
+          <div class="sector-code">LEMD</div>
+          <div class="sector-name">Madrid Barajas</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-code">EHAM</div>
+          <div class="sector-name">Amsterdam Schipol</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-code">LEBL</div>
+          <div class="sector-name">Barcelona El Prat</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-code">LEMG</div>
+          <div class="sector-name">Málaga Costa del Sol</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-code">LEPA</div>
+          <div class="sector-name">Palma Son Sant Joan</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-code">EDYY</div>
+          <div class="sector-name">Maastricht Radar</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">About Lainoa Software</h2>
+
+      <p>Hi! My name is Josu and I'm the creator of the simulator.</p>
+
+      <p>
+        In 2025, I realised that there was a huge gap in the world of flight simulation. There was no ATC simulator for amateur users that was reliable in terms of voice recognition and focused on approach control. So I decided to take the challenge on my own and
+        build a game from scratch. On april 2025 I released the Early Access version of the game. There is very good feedback from the avgeek community so I look forward to push updates frequently!
+      </p>
+
+      <p>
+        For any business inquiry, email me at <a href="mailto:lainoasoftware@gmail.com">lainoasoftware@gmail.com</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Lainoa Software. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
